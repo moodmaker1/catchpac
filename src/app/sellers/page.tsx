@@ -223,7 +223,7 @@ export default function SellersPage() {
           파트너 업체로 등록하세요
         </h2>
         <p className="text-gray-500 mb-6">
-          Catchpac에 업체를 등록하고 새로운 고객을 만나보세요
+          catchfac에 업체를 등록하고 새로운 고객을 만나보세요
         </p>
         <Link href="/register" className="btn-primary">
           무료로 등록하기

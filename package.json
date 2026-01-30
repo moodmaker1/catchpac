@@ -1,5 +1,5 @@
 {
-  "name": "danga",
+  "name": "catchfac",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,11 @@
     "start": "next start",
     "lint": "eslint",
     "generate-images": "tsx scripts/generate-images.ts",
-    "check-images": "tsx scripts/apply-images.ts"
+    "check-images": "tsx scripts/apply-images.ts",
+    "create-sellers": "tsx scripts/create-sample-sellers.ts",
+    "generate-sellers-json": "tsx scripts/generate-sellers-json.ts",
+    "import-sellers-manual": "tsx scripts/import-sellers-manual.ts",
+    "import-sellers": "tsx scripts/import-sellers-client.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
@@ -21,6 +25,7 @@
     "sharp": "^0.34.5"
   },
   "devDependencies": {
+    "@opentelemetry/api": "^1.9.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -28,6 +33,8 @@
     "dotenv": "^17.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "firebase-admin": "^13.6.0",
+    "firebase-tools": "^15.5.1",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
     "typescript": "^5"

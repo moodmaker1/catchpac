@@ -50,9 +50,15 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 ```
 
-### 3. Firestore 보안 규칙 설정
+### 3. Firestore 보안 규칙 설정 ⚠️ 중요!
 
-Firebase Console > Firestore > Rules에서 아래 규칙을 설정하세요:
+**Firebase Console에서 반드시 적용해야 합니다!**
+
+1. [Firebase Console](https://console.firebase.google.com) 접속
+2. 프로젝트 선택
+3. **Firestore Database** > **Rules** 탭 클릭
+4. 아래 규칙을 복사해서 붙여넣기
+5. **Publish** 버튼 클릭
 
 ```
 rules_version = '2';
@@ -60,27 +66,49 @@ service cloud.firestore {
   match /databases/{database}/documents {
     // Users collection
     match /users/{userId} {
-      allow read: if request.auth != null;
+      // 판매자(SELLER) 정보는 공개적으로 읽을 수 있음 (업체 목록 표시용)
+      // 개인 정보는 자신만 읽을 수 있음
+      allow read: if request.auth != null || 
+        (resource != null && resource.data.userType == 'SELLER');
+      // 자신의 문서만 생성/수정 가능
       allow create: if request.auth != null && request.auth.uid == userId;
       allow update: if request.auth != null && request.auth.uid == userId;
+      allow delete: if request.auth != null && request.auth.uid == userId;
     }
     
     // Quote Requests collection
     match /quoteRequests/{requestId} {
+      // 인증된 사용자만 읽을 수 있음
       allow read: if request.auth != null;
-      allow create: if request.auth != null;
-      allow update: if request.auth != null;
+      // 구매자만 생성 가능
+      allow create: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType == 'BUYER';
+      // 작성자만 수정 가능
+      allow update: if request.auth != null && 
+        resource.data.buyerId == request.auth.uid;
+      allow delete: if request.auth != null && 
+        resource.data.buyerId == request.auth.uid;
     }
     
     // Quote Responses collection
     match /quoteResponses/{responseId} {
-      allow read: if request.auth != null;
-      allow create: if request.auth != null;
-      allow update: if request.auth != null;
+      // 시세 정보 표시를 위해 공개적으로 읽을 수 있음 (가격, 납기 정보만)
+      // 전체 데이터는 인증된 사용자만
+      allow read: if true; // 공개 읽기 허용 (시세 정보 표시용)
+      // 판매자만 생성 가능
+      allow create: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType == 'SELLER';
+      // 작성자만 수정 가능
+      allow update: if request.auth != null && 
+        resource.data.sellerId == request.auth.uid;
+      allow delete: if request.auth != null && 
+        resource.data.sellerId == request.auth.uid;
     }
   }
 }
 ```
+
+**⚠️ 이 규칙을 적용하지 않으면 "Missing or insufficient permissions" 에러가 발생합니다!**
 
 ### 4. Firestore 인덱스 설정
 

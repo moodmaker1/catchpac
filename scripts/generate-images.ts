@@ -12,10 +12,10 @@ dotenv.config({ path: path.join(process.cwd(), ".env.local") });
 const IMAGE_CONFIG = [
   {
     name: "logo",
-    filename: "logo.svg",
-    size: "200x50px",
-    prompt: "Modern, minimalist logo design for 'Catchpac' - a B2B industrial parts quotation platform. Red (#DC2626) and white color scheme. Text-based logo with clean sans-serif typography. Optional: subtle icon of connected gears or quotation marks. Professional, tech startup feel. White background, vector style.",
-    type: "svg" as const,
+    filename: "logo.png",
+    size: "400x100px",
+    prompt: "Professional corporate logo for 'Catchpac' - a sophisticated B2B industrial parts quotation platform. Clean, modern typography with premium sans-serif font. Elegant red (#DC2626) color scheme. Minimalist geometric icon or abstract symbol representing connection and precision. Corporate, enterprise-grade design. White or transparent background. High-end business branding style, similar to Fortune 500 companies. No childish elements, very professional and refined.",
+    type: "png" as const,
   },
   {
     name: "hero-desktop",
@@ -127,6 +127,42 @@ const IMAGE_CONFIG = [
     filename: "og-image.jpg",
     size: "1200x630px",
     prompt: "Catchpac platform social media preview image. Logo centered, industrial parts in background. '제조업 구매품 견적 비교 플랫폼' text. Red (#DC2626) and white color scheme. 1200x630px, Facebook/LinkedIn optimized format. Professional, clean design.",
+    type: "jpg" as const,
+  },
+  // Hero Video Images (for Beo animation)
+  {
+    name: "hero-video-1",
+    filename: "hero-video/hero-video-1.jpg",
+    size: "1920x800px",
+    prompt: "Professional industrial manufacturing scene, wide angle view of modern Korean factory. Automation equipment and production line visible. Clean, bright lighting. Servo motors and industrial parts in background. 1920x800px, wide horizontal format. Modern, professional photography style. Red accent colors (#DC2626) subtly integrated. Optimistic, forward-looking atmosphere. High quality commercial photography. Scene 1 of 5.",
+    type: "jpg" as const,
+  },
+  {
+    name: "hero-video-2",
+    filename: "hero-video/hero-video-2.jpg",
+    size: "1920x800px",
+    prompt: "Professional industrial manufacturing scene, medium shot of precision assembly line. Workers and robots collaborating. Industrial parts (cylinders, motors) being assembled. Clean, bright lighting. 1920x800px, wide horizontal format. Modern, professional photography style. Red accent colors (#DC2626) subtly integrated. Optimistic, forward-looking atmosphere. High quality commercial photography. Scene 2 of 5.",
+    type: "jpg" as const,
+  },
+  {
+    name: "hero-video-3",
+    filename: "hero-video/hero-video-3.jpg",
+    size: "1920x800px",
+    prompt: "Professional industrial manufacturing scene, close-up of quality control station. Industrial parts being inspected. Digital displays and measurement tools visible. Clean, bright lighting. 1920x800px, wide horizontal format. Modern, professional photography style. Red accent colors (#DC2626) subtly integrated. Optimistic, forward-looking atmosphere. High quality commercial photography. Scene 3 of 5.",
+    type: "jpg" as const,
+  },
+  {
+    name: "hero-video-4",
+    filename: "hero-video/hero-video-4.jpg",
+    size: "1920x800px",
+    prompt: "Professional industrial manufacturing scene, warehouse view with organized parts storage. Industrial parts neatly arranged on shelves. Modern logistics system. Clean, bright lighting. 1920x800px, wide horizontal format. Modern, professional photography style. Red accent colors (#DC2626) subtly integrated. Optimistic, forward-looking atmosphere. High quality commercial photography. Scene 4 of 5.",
+    type: "jpg" as const,
+  },
+  {
+    name: "hero-video-5",
+    filename: "hero-video/hero-video-5.jpg",
+    size: "1920x800px",
+    prompt: "Professional industrial manufacturing scene, final wide shot of completed production area. Finished products and packaging visible. Modern factory environment. Clean, bright lighting. 1920x800px, wide horizontal format. Modern, professional photography style. Red accent colors (#DC2626) subtly integrated. Optimistic, forward-looking atmosphere. High quality commercial photography. Scene 5 of 5.",
     type: "jpg" as const,
   },
 ];
@@ -316,6 +352,12 @@ async function main() {
   if (!fs.existsSync(imagesDir)) {
     fs.mkdirSync(imagesDir, { recursive: true });
   }
+  
+  // hero-video 디렉토리 생성
+  const heroVideoDir = path.join(imagesDir, "hero-video");
+  if (!fs.existsSync(heroVideoDir)) {
+    fs.mkdirSync(heroVideoDir, { recursive: true });
+  }
 
   console.log("🎨 Starting image generation...\n");
   console.log(`📁 Output directory: ${imagesDir}\n`);
@@ -327,7 +369,12 @@ async function main() {
     const imageBuffer = await generateImage(config, geminiApiKey);
 
     if (imageBuffer) {
-      const filePath = path.join(imagesDir, config.filename);
+      // 파일 경로에 하위 디렉토리가 포함된 경우 처리
+      const filePath = path.join(process.cwd(), "public", "images", config.filename);
+      const fileDir = path.dirname(filePath);
+      if (!fs.existsSync(fileDir)) {
+        fs.mkdirSync(fileDir, { recursive: true });
+      }
       fs.writeFileSync(filePath, imageBuffer);
       console.log(`✅ Saved: ${filePath}`);
     } else {
