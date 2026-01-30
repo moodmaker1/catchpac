@@ -136,7 +136,7 @@ export default function Home() {
     <div>
       {/* Hero Section */}
       <section className="relative bg-gradient-to-b from-gray-50 to-white py-20 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 opacity-30">
         <Image
             src="/images/hero-desktop.jpg"
             alt=""

@@ -22,9 +22,9 @@ export default function Header() {
             <Image
               src="/images/logo.png"
               alt="Catchpac"
-              width={120}
-              height={30}
-              className="h-8 w-auto"
+              width={160}
+              height={40}
+              className="h-12 w-auto"
               priority
             />
           </Link>
