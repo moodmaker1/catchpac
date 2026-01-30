@@ -156,10 +156,10 @@ function HeroSection() {
             )
           ) : (
             <>
-              <Link href="/register" className="btn-primary text-lg px-8 py-4">
-                견적받기
+              <Link href="/register" className="btn-primary text-lg px-8 py-4 whitespace-nowrap">
+                지금 견적받기
               </Link>
-              <Link href="/sellers" className="btn-secondary text-lg px-8 py-4">
+              <Link href="/sellers" className="btn-secondary text-lg px-8 py-4 whitespace-nowrap">
                 파트너 업체 보기
               </Link>
             </>
@@ -1124,13 +1124,13 @@ export default function Home() {
               <>
                 <Link
                   href="/register"
-                  className="inline-block bg-[#DC2626] text-white font-bold text-lg px-10 py-5 rounded-lg hover:bg-red-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  className="inline-block bg-[#DC2626] text-white font-bold text-lg px-10 py-5 rounded-lg hover:bg-red-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 whitespace-nowrap"
                 >
-                  견적받기
+                  지금 견적받기
                 </Link>
                 <Link
                   href="/sellers"
-                  className="inline-block bg-white border-2 border-gray-300 text-gray-700 font-bold text-lg px-10 py-5 rounded-lg hover:bg-gray-50 transition-all"
+                  className="inline-block bg-white border-2 border-gray-300 text-gray-700 font-bold text-lg px-10 py-5 rounded-lg hover:bg-gray-50 transition-all whitespace-nowrap"
                 >
                   파트너 업체 보기
                 </Link>

@@ -65,7 +65,7 @@ export default function GuidePage() {
             </div>
             <div className="mt-6">
               <Link href="/register" className="btn-primary">
-                견적받기
+                지금 견적받기
               </Link>
             </div>
           </section>
