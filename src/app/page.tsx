@@ -146,16 +146,16 @@ function HeroSection() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           {user ? (
             user.userType === "BUYER" ? (
-              <Link href="/requests/new" className="btn-primary text-2xl md:text-3xl px-40 py-18 font-bold">
+              <Link href="/requests/new" className="btn-primary text-2xl md:text-3xl px-44 py-20 font-bold">
                 견적 요청하기
               </Link>
             ) : (
-              <Link href="/requests" className="btn-primary text-2xl md:text-3xl px-40 py-18 font-bold">
+              <Link href="/requests" className="btn-primary text-2xl md:text-3xl px-44 py-20 font-bold">
                 견적 요청 보기
               </Link>
             )
           ) : (
-            <Link href="/register" className="bg-[#DC2626] hover:bg-red-700 text-white text-xl md:text-2xl px-20 py-9 rounded-lg font-bold whitespace-nowrap transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            <Link href="/register" className="bg-[#DC2626] hover:bg-red-700 text-white text-xl md:text-2xl px-24 py-10 rounded-lg font-bold whitespace-nowrap transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
               지금 견적받기
             </Link>
           )}
@@ -345,28 +345,36 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-2 gap-6 mt-12">
             <div className="card text-left">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-[#DC2626] rounded-lg flex items-center justify-center text-white font-bold">
-                  구
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-12 h-12 bg-[#DC2626] rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                  </svg>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">구매자에게</h3>
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">구매자에게</h3>
+                  <div className="text-gray-600 text-sm leading-relaxed space-y-2">
+                    <p>여러 업체에 직접 연락할 필요 없이 한 번의 요청으로 여러 견적을 받을 수 있습니다.</p>
+                    <p>가격과 납기를 한눈에 비교하여 최적의 선택을 하세요.</p>
+                  </div>
+                </div>
               </div>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                여러 업체에 직접 연락할 필요 없이 한 번의 요청으로 여러 견적을 받을 수 있습니다. 
-                가격과 납기를 한눈에 비교하여 최적의 선택을 하세요.
-              </p>
             </div>
             <div className="card text-left">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-[#1e3a8a] rounded-lg flex items-center justify-center text-white font-bold">
-                  판
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900">판매자에게</h3>
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">판매자에게</h3>
+                  <div className="text-gray-600 text-sm leading-relaxed space-y-2">
+                    <p>새로운 고객을 만나고, 실시간 견적 요청 알림을 받아 빠르게 대응할 수 있습니다.</p>
+                    <p>프리미엄 파트너가 되면 상단 노출과 우선 알림 혜택을 받을 수 있습니다.</p>
+                  </div>
+                </div>
               </div>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                새로운 고객을 만나고, 실시간 견적 요청 알림을 받아 빠르게 대응할 수 있습니다. 
-                프리미엄 파트너가 되면 상단 노출과 우선 알림 혜택을 받을 수 있습니다.
-              </p>
             </div>
           </div>
         </div>

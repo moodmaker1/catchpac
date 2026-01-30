@@ -242,6 +242,20 @@ export default function EditSellerProfilePage() {
         </form>
       </div>
 
+      {/* 회원 탈퇴 */}
+      <div className="mt-8 card border-red-200">
+        <h2 className="text-lg font-semibold text-gray-900 mb-2">회원 탈퇴</h2>
+        <p className="text-gray-600 text-sm mb-4">
+          회원 탈퇴 시 모든 개인정보와 데이터가 삭제되며 복구할 수 없습니다.
+        </p>
+        <Link
+          href="/account/delete"
+          className="text-red-600 hover:text-red-700 font-medium text-sm hover:underline"
+        >
+          회원 탈퇴하기 →
+        </Link>
+      </div>
+
       {/* Premium CTA */}
       <div className="mt-8 card bg-gradient-to-r from-[#DC2626] to-[#B91C1C] text-white">
         <h2 className="text-lg font-semibold mb-2">프리미엄 파트너 되기</h2>

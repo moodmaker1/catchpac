@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="border-t border-gray-200 bg-gray-50">
@@ -37,10 +39,21 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="border-t border-gray-200 pt-6 mt-6 text-center">
-          <p className="text-sm text-gray-500">
-            COPYRIGHT © 2026 catchfac. All Rights Reserved.
-          </p>
+        <div className="border-t border-gray-200 pt-6 mt-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex gap-4 text-sm">
+              <Link href="/terms" className="text-gray-500 hover:text-gray-900 hover:underline">
+                이용약관
+              </Link>
+              <span className="text-gray-300">|</span>
+              <Link href="/privacy" className="text-gray-500 hover:text-gray-900 hover:underline">
+                개인정보 처리방침
+              </Link>
+            </div>
+            <p className="text-sm text-gray-500">
+              COPYRIGHT © 2026 catchfac. All Rights Reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

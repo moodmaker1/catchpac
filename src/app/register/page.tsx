@@ -15,6 +15,8 @@ export default function RegisterPage() {
   const [userType, setUserType] = useState<UserType>("BUYER");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const [agreeToPrivacy, setAgreeToPrivacy] = useState(false);
   const { signUp, signInWithGoogle, user, needsProfile } = useAuth();
   const router = useRouter();
 
@@ -29,6 +31,11 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (!agreeToTerms || !agreeToPrivacy) {
+      setError("이용약관 및 개인정보 처리방침에 동의해주세요");
+      return;
+    }
 
     if (password !== passwordConfirm) {
       setError("비밀번호가 일치하지 않습니다");
@@ -64,6 +71,11 @@ export default function RegisterPage() {
     // 사용자 유형이 선택되지 않았으면 에러 표시
     if (!userType) {
       setError("사용자 유형을 먼저 선택해주세요");
+      return;
+    }
+
+    if (!agreeToTerms || !agreeToPrivacy) {
+      setError("이용약관 및 개인정보 처리방침에 동의해주세요");
       return;
     }
 
@@ -133,11 +145,45 @@ export default function RegisterPage() {
             </div>
           </div>
 
+          {/* 약관 동의 (Google 로그인 전) */}
+          <div className="mb-4 space-y-3">
+            <div className="flex items-start">
+              <input
+                type="checkbox"
+                id="agreeToTermsGoogle"
+                checked={agreeToTerms}
+                onChange={(e) => setAgreeToTerms(e.target.checked)}
+                className="mt-1 h-4 w-4 text-[#DC2626] focus:ring-[#DC2626] border-gray-300 rounded"
+              />
+              <label htmlFor="agreeToTermsGoogle" className="ml-2 text-sm text-gray-700">
+                <Link href="/terms" target="_blank" className="text-[#DC2626] hover:underline">
+                  이용약관
+                </Link>
+                에 동의합니다 <span className="text-red-500">(필수)</span>
+              </label>
+            </div>
+            <div className="flex items-start">
+              <input
+                type="checkbox"
+                id="agreeToPrivacyGoogle"
+                checked={agreeToPrivacy}
+                onChange={(e) => setAgreeToPrivacy(e.target.checked)}
+                className="mt-1 h-4 w-4 text-[#DC2626] focus:ring-[#DC2626] border-gray-300 rounded"
+              />
+              <label htmlFor="agreeToPrivacyGoogle" className="ml-2 text-sm text-gray-700">
+                <Link href="/privacy" target="_blank" className="text-[#DC2626] hover:underline">
+                  개인정보 처리방침
+                </Link>
+                에 동의합니다 <span className="text-red-500">(필수)</span>
+              </label>
+            </div>
+          </div>
+
           {/* Google Login Button */}
           <button
             type="button"
             onClick={handleGoogleLogin}
-            disabled={loading || !userType}
+            disabled={loading || !userType || !agreeToTerms || !agreeToPrivacy}
             className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 font-medium py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">

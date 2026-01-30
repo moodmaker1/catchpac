@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
 import { UserType } from "@/types";
 
@@ -11,6 +12,8 @@ export default function CompleteProfilePage() {
   const [userType, setUserType] = useState<UserType>("BUYER");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const [agreeToPrivacy, setAgreeToPrivacy] = useState(false);
   const { firebaseUser, user, needsProfile, completeProfile, loading: authLoading } = useAuth();
   const router = useRouter();
 
@@ -39,6 +42,11 @@ export default function CompleteProfilePage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (!agreeToTerms || !agreeToPrivacy) {
+      setError("이용약관 및 개인정보 처리방침에 동의해주세요");
+      return;
+    }
 
     if (!name.trim()) {
       setError("담당자명을 입력해주세요");
@@ -184,9 +192,45 @@ export default function CompleteProfilePage() {
               />
             </div>
 
+            {/* 약관 동의 */}
+            <div className="space-y-3">
+              <div className="flex items-start">
+                <input
+                  type="checkbox"
+                  id="agreeToTerms"
+                  checked={agreeToTerms}
+                  onChange={(e) => setAgreeToTerms(e.target.checked)}
+                  className="mt-1 h-4 w-4 text-[#DC2626] focus:ring-[#DC2626] border-gray-300 rounded"
+                  required
+                />
+                <label htmlFor="agreeToTerms" className="ml-2 text-sm text-gray-700">
+                  <Link href="/terms" target="_blank" className="text-[#DC2626] hover:underline">
+                    이용약관
+                  </Link>
+                  에 동의합니다 <span className="text-red-500">(필수)</span>
+                </label>
+              </div>
+              <div className="flex items-start">
+                <input
+                  type="checkbox"
+                  id="agreeToPrivacy"
+                  checked={agreeToPrivacy}
+                  onChange={(e) => setAgreeToPrivacy(e.target.checked)}
+                  className="mt-1 h-4 w-4 text-[#DC2626] focus:ring-[#DC2626] border-gray-300 rounded"
+                  required
+                />
+                <label htmlFor="agreeToPrivacy" className="ml-2 text-sm text-gray-700">
+                  <Link href="/privacy" target="_blank" className="text-[#DC2626] hover:underline">
+                    개인정보 처리방침
+                  </Link>
+                  에 동의합니다 <span className="text-red-500">(필수)</span>
+                </label>
+              </div>
+            </div>
+
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || !agreeToTerms || !agreeToPrivacy}
               className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "저장 중..." : "시작하기"}

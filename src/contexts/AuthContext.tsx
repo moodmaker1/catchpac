@@ -16,7 +16,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, deleteDoc, collection, query, where, getDocs, writeBatch } from "firebase/firestore";
+import { deleteUser } from "firebase/auth";
 import { auth, db } from "@/lib/firebase";
 import { User, UserType } from "@/types";
 
@@ -36,6 +37,7 @@ interface AuthContextType {
   signInWithGoogle: () => Promise<{ isNewUser: boolean }>;
   completeProfile: (name: string, company: string, userType: UserType) => Promise<void>;
   signOut: () => Promise<void>;
+  deleteAccount: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -176,6 +178,54 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setNeedsProfile(false);
   };
 
+  const deleteAccount = async () => {
+    if (!auth || !db || !firebaseUser) throw new Error("Not authenticated");
+    
+    const userId = firebaseUser.uid;
+    const batch = writeBatch(db);
+    
+    try {
+      // 1. 사용자 문서 삭제
+      const userRef = doc(db, "users", userId);
+      batch.delete(userRef);
+      
+      // 2. 사용자가 작성한 견적 요청 삭제 (구매자인 경우)
+      const requestsQuery = query(
+        collection(db, "quoteRequests"),
+        where("buyerId", "==", userId)
+      );
+      const requestsSnapshot = await getDocs(requestsQuery);
+      requestsSnapshot.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+      
+      // 3. 사용자가 작성한 견적 응답 삭제 (판매자인 경우)
+      const responsesQuery = query(
+        collection(db, "quoteResponses"),
+        where("sellerId", "==", userId)
+      );
+      const responsesSnapshot = await getDocs(responsesQuery);
+      responsesSnapshot.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+      
+      // 4. 모든 변경사항 일괄 적용
+      await batch.commit();
+      
+      // 5. Firebase Auth 계정 삭제
+      if (firebaseUser) {
+        await deleteUser(firebaseUser);
+      }
+      
+      // 6. 로컬 상태 초기화
+      setUser(null);
+      setNeedsProfile(false);
+    } catch (error: any) {
+      console.error("Error deleting account:", error);
+      throw error;
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{ 
@@ -187,7 +237,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signUp, 
         signInWithGoogle,
         completeProfile,
-        signOut 
+        signOut,
+        deleteAccount
       }}
     >
       {children}
