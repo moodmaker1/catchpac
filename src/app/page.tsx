@@ -990,7 +990,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-[url('/images/hero-desktop.jpg')] bg-cover bg-center"></div>
         </div>
         {/* 어두운 오버레이 */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/70"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
