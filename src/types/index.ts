@@ -191,3 +191,12 @@ export const REGIONS = [
   "제주",
   "전국",
 ] as const;
+
+// 견적 요청 품목 카테고리 (가나다라 순)
+export const PRODUCT_CATEGORIES = [
+  "구매품",
+  "밀링물",
+  "선반물",
+  "소모품(볼트, 너트, 와셔)",
+  "판금물",
+] as const;

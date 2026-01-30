@@ -5,12 +5,13 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { collection, addDoc, Firestore } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { MAKERS } from "@/types";
+import { MAKERS, PRODUCT_CATEGORIES } from "@/types";
 
 export default function NewRequestPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
+  const [category, setCategory] = useState("");
   const [maker, setMaker] = useState("");
   const [makerCustom, setMakerCustom] = useState("");
   const [partNumber, setPartNumber] = useState("");
@@ -65,6 +66,12 @@ export default function NewRequestPage() {
 
     const finalMaker = maker === "기타" ? makerCustom : maker;
 
+    if (!category) {
+      setError("품목을 선택해주세요");
+      setLoading(false);
+      return;
+    }
+
     if (!finalMaker) {
       setError("메이커를 입력해주세요");
       setLoading(false);
@@ -75,7 +82,7 @@ export default function NewRequestPage() {
       await addDoc(collection(firestore, "quoteRequests"), {
         buyerId: user.id,
         buyerCompany: isAnonymous ? "익명" : user.company,
-        category: "기타", // 카테고리 필드 제거 대신 기본값으로 저장
+        category: category,
         maker: finalMaker,
         partNumber,
         quantity: parseInt(quantity),
@@ -106,6 +113,29 @@ export default function NewRequestPage() {
               {error}
             </div>
           )}
+
+          <div>
+            <label
+              htmlFor="category"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              품목
+            </label>
+            <select
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="input-field"
+              required
+            >
+              <option value="">선택하세요</option>
+              {PRODUCT_CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div>
             <label
