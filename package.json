@@ -12,7 +12,8 @@
     "create-sellers": "tsx scripts/create-sample-sellers.ts",
     "generate-sellers-json": "tsx scripts/generate-sellers-json.ts",
     "import-sellers-manual": "tsx scripts/import-sellers-manual.ts",
-    "import-sellers": "tsx scripts/import-sellers-client.ts"
+    "import-sellers": "tsx scripts/import-sellers-client.ts",
+    "set-admin": "tsx scripts/set-admin.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

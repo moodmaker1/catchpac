@@ -15,6 +15,8 @@ export interface User {
   isPremium?: boolean;
   premiumUntil?: Date;
   profileComplete?: boolean;
+  // 관리자 필드
+  isAdmin?: boolean;
 }
 
 export type RequestStatus = "OPEN" | "CLOSED";

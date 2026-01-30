@@ -68,6 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             company: userData.company,
             userType: userData.userType,
             createdAt: userData.createdAt?.toDate() || new Date(),
+            isAdmin: userData.isAdmin || false,
           });
           setNeedsProfile(false);
         } else {
@@ -140,14 +141,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       createdAt: new Date(),
     });
 
-    setUser({
-      id: firebaseUser.uid,
-      email: firebaseUser.email || "",
-      name,
-      company,
-      userType,
-      createdAt: new Date(),
-    });
+    const updatedUserDoc = await getDoc(doc(db, "users", firebaseUser.uid));
+    if (updatedUserDoc.exists()) {
+      const userData = updatedUserDoc.data();
+      setUser({
+        id: firebaseUser.uid,
+        email: firebaseUser.email || "",
+        name,
+        company,
+        userType,
+        createdAt: new Date(),
+        isAdmin: userData.isAdmin || false,
+      });
+    } else {
+      setUser({
+        id: firebaseUser.uid,
+        email: firebaseUser.email || "",
+        name,
+        company,
+        userType,
+        createdAt: new Date(),
+        isAdmin: false,
+      });
+    }
     setNeedsProfile(false);
   };
 

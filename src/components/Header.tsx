@@ -6,6 +6,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ConsultationModal from "./ConsultationModal";
+import { isAdmin } from "@/lib/admin";
 
 export default function Header() {
   const { user, loading, signOut } = useAuth();
@@ -87,6 +88,14 @@ export default function Header() {
                   내 프로필
                 </Link>
               </>
+            )}
+            {user && isAdmin(user) && (
+              <Link
+                href="/admin"
+                className="text-[#DC2626] hover:text-red-700 font-medium"
+              >
+                관리자
+              </Link>
             )}
           </nav>
 
@@ -175,6 +184,11 @@ export default function Header() {
                   내 프로필
                 </Link>
               </>
+            )}
+            {isAdmin(user) && (
+              <Link href="/admin" className="text-[#DC2626] hover:text-red-700 font-medium">
+                관리자
+              </Link>
             )}
           </div>
         </div>
