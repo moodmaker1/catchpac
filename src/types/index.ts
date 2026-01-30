@@ -198,5 +198,7 @@ export const PRODUCT_CATEGORIES = [
   "밀링물",
   "선반물",
   "소모품(볼트, 너트, 와셔)",
+  "용접 구조물",
   "판금물",
+  "프로파일 구조물",
 ] as const;
