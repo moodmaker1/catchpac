@@ -161,7 +161,7 @@ export default function SellersPage() {
               {seller.isPremium && (
                 <div className="absolute -top-3 left-4 flex items-center gap-1 bg-[#DC2626] text-white text-xs font-semibold px-3 py-1 rounded-full">
                   <Image
-                    src="/images/badge-premium.svg"
+                    src="/images/badge-premium.png"
                     alt="Premium"
                     width={12}
                     height={12}
@@ -174,7 +174,7 @@ export default function SellersPage() {
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center flex-shrink-0">
                     <Image
-                      src="/images/seller-placeholder.svg"
+                      src="/images/seller-placeholder.png"
                       alt={`${seller.company} 로고`}
                       width={48}
                       height={48}

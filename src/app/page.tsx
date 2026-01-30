@@ -287,7 +287,7 @@ export default function Home() {
             <div className="text-center">
               <div className="w-32 h-32 mx-auto mb-4 relative">
                 <Image
-                  src="/images/process-1-register.svg"
+                  src="/images/process-1-register.png"
                   alt="부품 정보 등록"
                   fill
                   className="object-contain"
@@ -304,7 +304,7 @@ export default function Home() {
             <div className="text-center">
               <div className="w-32 h-32 mx-auto mb-4 relative">
                 <Image
-                  src="/images/process-2-notify.svg"
+                  src="/images/process-2-notify.png"
                   alt="업체에서 연락"
                   fill
                   className="object-contain"
@@ -321,7 +321,7 @@ export default function Home() {
             <div className="text-center">
               <div className="w-32 h-32 mx-auto mb-4 relative">
                 <Image
-                  src="/images/process-3-compare.svg"
+                  src="/images/process-3-compare.png"
                   alt="비교 후 선택"
                   fill
                   className="object-contain"

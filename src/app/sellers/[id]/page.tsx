@@ -91,7 +91,7 @@ export default function SellerDetailPage() {
         <div className="flex items-start gap-6 mb-4">
           <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-gray-200 bg-gray-100 flex items-center justify-center flex-shrink-0">
             <Image
-              src="/images/seller-placeholder.svg"
+              src="/images/seller-placeholder.png"
               alt={`${seller.company} 로고`}
               width={96}
               height={96}
@@ -102,7 +102,7 @@ export default function SellerDetailPage() {
               {seller.isPremium && (
                 <span className="flex items-center gap-1 bg-[#DC2626] text-white text-xs font-semibold px-3 py-1 rounded-full">
                   <Image
-                    src="/images/badge-premium.svg"
+                    src="/images/badge-premium.png"
                     alt="Premium"
                     width={12}
                     height={12}

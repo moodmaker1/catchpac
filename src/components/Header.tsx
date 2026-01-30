@@ -20,7 +20,7 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/images/logo.svg"
+              src="/images/logo.png"
               alt="Catchpac"
               width={120}
               height={30}
