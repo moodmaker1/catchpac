@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, where, Firestore } from "firebase/firestore";
@@ -134,8 +135,17 @@ export default function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-gray-50 to-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="relative bg-gradient-to-b from-gray-50 to-white py-20 overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+        <Image
+            src="/images/hero-desktop.jpg"
+            alt=""
+            fill
+            className="object-cover"
+          priority
+        />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gray-500 text-lg mb-2">부품 구매 고민의 순간</p>
           <h1 className="text-5xl md:text-6xl font-bold text-[#DC2626] mb-6">
             Catchpac
@@ -275,8 +285,13 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#DC2626] text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                1
+              <div className="w-32 h-32 mx-auto mb-4 relative">
+                <Image
+                  src="/images/process-1-register.svg"
+                  alt="부품 정보 등록"
+                  fill
+                  className="object-contain"
+                />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 부품 정보 등록
@@ -287,8 +302,13 @@ export default function Home() {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#DC2626] text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                2
+              <div className="w-32 h-32 mx-auto mb-4 relative">
+                <Image
+                  src="/images/process-2-notify.svg"
+                  alt="업체에서 연락"
+                  fill
+                  className="object-contain"
+                />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 업체에서 연락
@@ -299,8 +319,13 @@ export default function Home() {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-[#DC2626] text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                3
+              <div className="w-32 h-32 mx-auto mb-4 relative">
+                <Image
+                  src="/images/process-3-compare.svg"
+                  alt="비교 후 선택"
+                  fill
+                  className="object-contain"
+                />
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 비교 후 선택
@@ -327,8 +352,30 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {priceData.map((item) => (
+              {priceData.map((item) => {
+                const categoryImageMap: Record<string, string> = {
+                  "서보 모터": "/images/category-servo-motor.jpg",
+                  "실린더": "/images/category-cylinder.jpg",
+                  "모터": "/images/category-motor.jpg",
+                  "베어링": "/images/category-bearing.jpg",
+                  "LM 가이드": "/images/category-lm-guide.jpg",
+                  "센서": "/images/category-sensor.jpg",
+                  "PLC": "/images/category-plc.jpg",
+                  "인버터": "/images/category-inverter.jpg",
+                  "기타": "/images/category-other.jpg",
+                };
+                const imagePath = categoryImageMap[item.category] || "/images/category-other.jpg";
+                
+                return (
                 <div key={item.category} className="card card-hover">
+                  <div className="relative w-full h-32 mb-3 rounded-lg overflow-hidden">
+            <Image
+                      src={imagePath}
+                      alt={item.category}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                   <div className="flex justify-between items-start mb-3">
                     <h3 className="font-semibold text-gray-700">
                       {item.category}
@@ -353,7 +400,8 @@ export default function Home() {
                     평균 납기 {item.avgDeliveryDays}일 · {item.sampleCount}건 기준
                   </p>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>

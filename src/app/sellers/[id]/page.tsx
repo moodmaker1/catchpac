@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { doc, getDoc, Firestore } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { User } from "@/types";
@@ -87,19 +88,37 @@ export default function SellerDetailPage() {
     <div className="max-w-4xl mx-auto px-4 py-12">
       {/* Header */}
       <div className="mb-8">
-        <div className="flex items-center gap-3 mb-2">
-          {seller.isPremium && (
-            <span className="bg-[#DC2626] text-white text-xs font-semibold px-3 py-1 rounded-full">
-              프리미엄 파트너
-            </span>
-          )}
+        <div className="flex items-start gap-6 mb-4">
+          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-gray-200 bg-gray-100 flex items-center justify-center flex-shrink-0">
+            <Image
+              src="/images/seller-placeholder.svg"
+              alt={`${seller.company} 로고`}
+              width={96}
+              height={96}
+            />
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-2">
+              {seller.isPremium && (
+                <span className="flex items-center gap-1 bg-[#DC2626] text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  <Image
+                    src="/images/badge-premium.svg"
+                    alt="Premium"
+                    width={12}
+                    height={12}
+                  />
+                  프리미엄 파트너
+                </span>
+              )}
+            </div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              {seller.company}
+            </h1>
+            <p className="text-gray-500">
+              {seller.region} · {seller.name} 담당
+            </p>
+          </div>
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          {seller.company}
-        </h1>
-        <p className="text-gray-500">
-          {seller.region} · {seller.name} 담당
-        </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

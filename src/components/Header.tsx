@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 
@@ -18,7 +19,14 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-[#DC2626]">Catchpac</span>
+            <Image
+              src="/images/logo.svg"
+              alt="Catchpac"
+              width={120}
+              height={30}
+              className="h-8 w-auto"
+              priority
+            />
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">

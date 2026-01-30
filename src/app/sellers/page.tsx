@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   collection,
   query,
@@ -158,18 +159,36 @@ export default function SellersPage() {
               }`}
             >
               {seller.isPremium && (
-                <div className="absolute -top-3 left-4 bg-[#DC2626] text-white text-xs font-semibold px-3 py-1 rounded-full">
+                <div className="absolute -top-3 left-4 flex items-center gap-1 bg-[#DC2626] text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  <Image
+                    src="/images/badge-premium.svg"
+                    alt="Premium"
+                    width={12}
+                    height={12}
+                  />
                   프리미엄
                 </div>
               )}
 
               <div className="pt-2">
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                  {seller.company}
-                </h3>
-                <p className="text-sm text-gray-500 mb-3">
-                  {seller.region} · {seller.name}
-                </p>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-100 flex items-center justify-center flex-shrink-0">
+                    <Image
+                      src="/images/seller-placeholder.svg"
+                      alt={`${seller.company} 로고`}
+                      width={48}
+                      height={48}
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                      {seller.company}
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      {seller.region} · {seller.name}
+                    </p>
+                  </div>
+                </div>
 
                 {seller.description && (
                   <p className="text-sm text-gray-600 mb-3 line-clamp-2">
