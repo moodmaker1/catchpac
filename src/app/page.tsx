@@ -146,11 +146,11 @@ function HeroSection() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           {user ? (
             user.userType === "BUYER" ? (
-              <Link href="/requests/new" className="btn-primary text-xl md:text-2xl px-10 py-5">
+              <Link href="/requests/new" className="btn-primary text-2xl md:text-3xl px-20 py-9 font-bold">
                 견적 요청하기
               </Link>
             ) : (
-              <Link href="/requests" className="btn-primary text-xl md:text-2xl px-10 py-5">
+              <Link href="/requests" className="btn-primary text-2xl md:text-3xl px-20 py-9 font-bold">
                 견적 요청 보기
               </Link>
             )
